@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Heart,
-} from "lucide-react";
+import { Phone, Mail, MapPin, Heart } from "lucide-react";
 import TempleMark from "../common/TempleMark";
 
 const SocialFacebook = (props) => (
@@ -19,7 +14,13 @@ const SocialYoutube = (props) => (
   </svg>
 );
 const SocialInstagram = (props) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    {...props}
+  >
     <rect x="3" y="3" width="18" height="18" rx="5" />
     <circle cx="12" cy="12" r="4" />
     <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
@@ -104,7 +105,7 @@ export default function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-white/65">
             <li className="flex items-start gap-2.5">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-              Kalatuwagama, Uva Province, Sri Lanka
+              Kalatuwagama, North Western Province, Sri Lanka
             </li>
             <li className="flex items-center gap-2.5">
               <Phone className="h-4 w-4 shrink-0 text-gold-400" />
@@ -119,7 +120,9 @@ export default function Footer() {
           <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-gold-400">
             {t("footer.emergency")}
           </p>
-          <p className="mt-2 text-sm text-white/65">Temple Office: +94 55 222 3344</p>
+          <p className="mt-2 text-sm text-white/65">
+            Temple Office: +94 55 222 3344
+          </p>
         </div>
 
         <div>
@@ -149,7 +152,15 @@ export default function Footer() {
             © {year} Kalatuwagama Rajamaha Viharaya. {t("footer.rights")}
           </p>
           <p className="flex items-center gap-1.5">
-            Made with <Heart className="h-3.5 w-3.5 text-primary-400" /> for the community
+            Made by{" "}
+            <a
+              href="https://anushkasahan.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 transition-colors hover:text-gold-400"
+            >
+              Anushka Sahan
+            </a>
           </p>
         </div>
       </div>

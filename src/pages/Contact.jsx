@@ -39,18 +39,24 @@ export default function Contact() {
 
   return (
     <div>
-      <section className="relative flex min-h-[50vh] items-end overflow-hidden bg-gradient-hero pb-16 pt-32">
+      <section className="relative flex min-h-[50vh] items-center overflow-hidden bg-gradient-hero pb-16 pt-32">
         <HeroPhoto />
         <div className="pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full bg-gold-500/10 blur-3xl" />
-        <div className="container-wide relative">
+        <div className="container-wide relative text-center">
           <Reveal>
-            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">{t("contact.eyebrow")}</span>
+            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">
+              {t("contact.eyebrow")}
+            </span>
           </Reveal>
           <Reveal delay={0.1}>
-            <h1 className="mt-5 font-display text-4xl font-semibold text-white sm:text-5xl">{t("contact.title")}</h1>
+            <h1 className="mt-5 font-display text-4xl font-semibold text-white sm:text-5xl">
+              {t("contact.title")}
+            </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 max-w-xl text-white/75">{t("contact.subtitle")}</p>
+            <p className="mx-auto mt-4 max-w-xl text-white/75">
+              {t("contact.subtitle")}
+            </p>
           </Reveal>
         </div>
       </section>
@@ -65,12 +71,31 @@ export default function Contact() {
               </h2>
               <div className="mt-6 space-y-4">
                 {[
-                  { icon: MapPin, label: t("contact.address"), value: "Kalatuwagama, Uva Province, Sri Lanka" },
-                  { icon: Phone, label: t("contact.phone"), value: "+94 55 222 3344" },
-                  { icon: Mail, label: t("contact.email2"), value: "info@kalatuwagama.lk" },
-                  { icon: MessageCircle, label: t("contact.whatsapp"), value: "+94 77 123 4567" },
+                  {
+                    icon: MapPin,
+                    label: t("contact.address"),
+                    value: "Kalatuwagama, North Western Province, Sri Lanka",
+                  },
+                  {
+                    icon: Phone,
+                    label: t("contact.phone"),
+                    value: "+94 55 222 3344",
+                  },
+                  {
+                    icon: Mail,
+                    label: t("contact.email2"),
+                    value: "info@kalatuwagama.lk",
+                  },
+                  {
+                    icon: MessageCircle,
+                    label: t("contact.whatsapp"),
+                    value: "+94 77 123 4567",
+                  },
                 ].map((item) => (
-                  <div key={item.label} className="flex items-start gap-4 rounded-2xl border border-ink-900/5 bg-white p-4 shadow-card dark:border-white/10 dark:bg-ink-900">
+                  <div
+                    key={item.label}
+                    className="flex items-start gap-4 rounded-2xl border border-ink-900/5 bg-white p-4 shadow-card dark:border-white/10 dark:bg-ink-900"
+                  >
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-500/15 text-gold-600 dark:text-gold-400">
                       <item.icon className="h-5 w-5" />
                     </div>
@@ -78,7 +103,9 @@ export default function Contact() {
                       <p className="text-xs font-semibold uppercase tracking-wide text-ink-900/45 dark:text-cream-100/45">
                         {item.label}
                       </p>
-                      <p className="mt-0.5 font-medium text-ink-900 dark:text-cream-50">{item.value}</p>
+                      <p className="mt-0.5 font-medium text-ink-900 dark:text-cream-50">
+                        {item.value}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -111,7 +138,9 @@ export default function Contact() {
                     <input
                       type="text"
                       value={form.fullName}
-                      onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, fullName: e.target.value })
+                      }
                       placeholder={t("contact.namePlaceholder")}
                       className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
                       required
@@ -124,7 +153,9 @@ export default function Contact() {
                     <input
                       type="email"
                       value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, email: e.target.value })
+                      }
                       placeholder={t("contact.emailPlaceholder")}
                       className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
                       required
@@ -138,7 +169,9 @@ export default function Contact() {
                   <input
                     type="text"
                     value={form.subject}
-                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, subject: e.target.value })
+                    }
                     placeholder={t("contact.subjectPlaceholder")}
                     className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
                   />
@@ -150,13 +183,19 @@ export default function Contact() {
                   <textarea
                     rows="5"
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, message: e.target.value })
+                    }
                     placeholder={t("contact.messagePlaceholder")}
                     className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
                     required
                   />
                 </div>
-                <button type="submit" disabled={submitting} className="btn-primary w-full">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-primary w-full"
+                >
                   <Send className="h-4 w-4" />
                   {submitting ? t("common.loading") : t("common.send")}
                 </button>

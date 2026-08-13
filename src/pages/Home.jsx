@@ -5,13 +5,17 @@ import {
   ArrowRight,
   BookOpen,
   Calendar,
+  Flower2,
   HeartHandshake,
   Landmark,
   MapPin,
+  Mouse,
   Quote,
+  ShieldCheck,
   Sparkles,
   Sunrise,
   Sunset,
+  Users,
 } from "lucide-react";
 import { getEvents } from "../api/events";
 import { getTempleHistories } from "../api/templeHistory";
@@ -29,6 +33,18 @@ const TEMPLE_LOCATION = {
   lng: 80.3433217,
   mapsUrl:
     "https://www.google.com/maps/place/Kalatuwagama+Rajamaha+Viharaya/@7.6818222,80.3455656,16.39z/data=!4m6!3m5!1s0x3afccd9e032d990b:0x6bf2ed7b00e69166!8m2!3d7.684082!4d80.3433217",
+};
+
+const HERO_FEATURES = [
+  { icon: Flower2, label: "Spiritual Guidance" },
+  { icon: BookOpen, label: "Daham Pasala Education" },
+  { icon: Users, label: "Community Service" },
+  { icon: ShieldCheck, label: "Preserving Our Heritage" },
+];
+
+const HERO_QUOTE = {
+  text: "Be a lamp unto yourself.",
+  author: "The Buddha",
 };
 
 const TESTIMONIALS = [
@@ -59,6 +75,12 @@ export default function Home() {
   const [photos, setPhotos] = useState([]);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const heroLines = t("home.heroTitle").split("\n");
+  const lastLine = heroLines[heroLines.length - 1];
+  const lastLineWords = lastLine.split(" ");
+  const lastWord = lastLineWords.pop();
+  const lastLineRest = lastLineWords.join(" ");
 
   useEffect(() => {
     (async () => {
@@ -108,39 +130,97 @@ export default function Home() {
         <div className="pointer-events-none absolute -right-32 top-1/4 h-[420px] w-[420px] animate-float rounded-full bg-gold-500/10 blur-3xl" />
         <div className="pointer-events-none absolute -left-24 bottom-0 h-[360px] w-[360px] rounded-full bg-primary-500/10 blur-3xl" />
 
-        <div className="container-wide relative z-10 pt-24">
+        <div className="container-wide relative z-10 flex min-h-screen flex-col justify-center pb-28 pt-24">
           <Reveal>
-            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">
+            <span className="eyebrow border-primary-400/40 bg-white/10 text-gold-300">
               <Sparkles className="h-3.5 w-3.5" />
               {t("home.heroEyebrow")}
             </span>
           </Reveal>
           <Reveal delay={0.1}>
-            <h1 className="mt-6 max-w-3xl whitespace-pre-line font-display text-4xl font-semibold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
-              {t("home.heroTitle")}
+            <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+              {heroLines.slice(0, -1).map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+              {lastLineRest ? `${lastLineRest} ` : ""}
+              <span className="text-gold-400">{lastWord}</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.2}>
+
+          <Reveal delay={0.18}>
+            <div className="mt-7 flex max-w-md items-center gap-3 text-gold-400/60">
+              <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold-400/50 to-gold-400/50" />
+              <Flower2 className="h-4 w-4 shrink-0" />
+              <span className="h-px flex-1 bg-gradient-to-l from-transparent via-gold-400/50 to-gold-400/50" />
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.24}>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
               {t("home.heroSubtitle")}
             </p>
           </Reveal>
-          <Reveal delay={0.3}>
+          <Reveal delay={0.32}>
             <div className="mt-9 flex flex-wrap gap-4">
               <Link to="/temple" className="btn-gold">
+                <Landmark className="h-4 w-4" />
                 {t("home.heroCtaPrimary")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/contact" className="btn-outline !border-white/30 !bg-white/10 !text-white hover:!bg-white/20">
+              <Link
+                to="/contact"
+                className="btn-outline !border-white/30 !bg-white/10 !text-white hover:!bg-white/20"
+              >
+                <Calendar className="h-4 w-4" />
                 {t("home.heroCtaSecondary")}
               </Link>
             </div>
           </Reveal>
+
+          {/* Feature pills */}
+          <Reveal delay={0.4}>
+            <div className="mt-14 flex max-w-2xl flex-wrap gap-3">
+              {HERO_FEATURES.map((feature) => (
+                <div
+                  key={feature.label}
+                  className="flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] py-2 pl-2 pr-4 backdrop-blur-sm"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-gold-300">
+                    <feature.icon className="h-4 w-4" />
+                  </span>
+                  <span className="text-xs font-medium leading-tight text-white/85">
+                    {feature.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/50 sm:flex">
-          <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-          <div className="h-10 w-px animate-pulse bg-white/40" />
+        {/* Quote card */}
+        <Reveal
+          delay={0.5}
+          className="absolute bottom-16 right-6 z-10 hidden max-w-xs lg:block xl:right-16"
+        >
+          <div className="rounded-2xl border border-white/15 bg-ink-950/40 p-6 shadow-soft backdrop-blur-md">
+            <Quote className="h-6 w-6 text-gold-400/70" />
+            <p className="mt-3 font-display text-lg italic leading-snug text-white/90">
+              "{HERO_QUOTE.text}"
+            </p>
+            <p className="mt-2 text-xs font-medium uppercase tracking-wider text-gold-300/80">
+              — {HERO_QUOTE.author}
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/50 sm:flex">
+          <Mouse className="h-5 w-5 animate-bounce" strokeWidth={1.5} />
+          <span className="text-[10px] uppercase tracking-[0.3em]">
+            Scroll to Explore
+          </span>
         </div>
       </section>
 
@@ -155,9 +235,24 @@ export default function Home() {
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {[
-              { icon: Landmark, titleKey: "org1Title", textKey: "org1Text", href: "/temple" },
-              { icon: BookOpen, titleKey: "org2Title", textKey: "org2Text", href: "/daham-pasala" },
-              { icon: HeartHandshake, titleKey: "org3Title", textKey: "org3Text", href: "/foundation" },
+              {
+                icon: Landmark,
+                titleKey: "org1Title",
+                textKey: "org1Text",
+                href: "/temple",
+              },
+              {
+                icon: BookOpen,
+                titleKey: "org2Title",
+                textKey: "org2Text",
+                href: "/daham-pasala",
+              },
+              {
+                icon: HeartHandshake,
+                titleKey: "org3Title",
+                textKey: "org3Text",
+                href: "/foundation",
+              },
             ].map((org, i) => (
               <Reveal key={org.titleKey} delay={i * 0.1}>
                 <Link
@@ -283,10 +378,7 @@ export default function Home() {
               {history?.description ||
                 "For generations, this temple has stood as a spiritual home for the Kalatuwagama community — a place of quiet devotion, learning, and service that continues to grow with each passing year."}
             </p>
-            <Link
-              to="/temple#history"
-              className="btn-primary mt-8 inline-flex"
-            >
+            <Link to="/temple#history" className="btn-primary mt-8 inline-flex">
               {t("common.readMore")}
               <ArrowRight className="h-4 w-4" />
             </Link>
@@ -307,7 +399,11 @@ export default function Home() {
                   <SkeletonCard key={i} className="aspect-square" />
                 ))
               : photos.map((photo, i) => (
-                  <Reveal key={photo.id} delay={i * 0.05} className="aspect-square">
+                  <Reveal
+                    key={photo.id}
+                    delay={i * 0.05}
+                    className="aspect-square"
+                  >
                     <div className="group h-full w-full overflow-hidden rounded-2xl">
                       <FocalImage
                         src={photo.imageUrl}
@@ -338,15 +434,20 @@ export default function Home() {
             />
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {loading
-                ? [1, 2, 3].map((i) => <SkeletonCard key={i} className="h-44" />)
+                ? [1, 2, 3].map((i) => (
+                    <SkeletonCard key={i} className="h-44" />
+                  ))
                 : news.map((item, i) => (
                     <Reveal key={item.id} delay={i * 0.1}>
                       <div className="flex h-full flex-col rounded-2xl border border-ink-900/5 bg-white p-6 shadow-card dark:border-white/10 dark:bg-ink-900">
                         <p className="text-xs font-semibold uppercase tracking-wide text-gold-600 dark:text-gold-400">
-                          {new Date(item.createdAt || Date.now()).toLocaleDateString(
-                            "en-US",
-                            { month: "short", day: "numeric", year: "numeric" },
-                          )}
+                          {new Date(
+                            item.createdAt || Date.now(),
+                          ).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
                         </p>
                         <h3 className="mt-2 font-display text-lg font-semibold text-ink-900 dark:text-cream-50">
                           {item.title}
@@ -377,7 +478,10 @@ export default function Home() {
               <p className="relative mx-auto mt-4 max-w-xl text-white/75">
                 {t("home.donationsText")}
               </p>
-              <Link to="/donations" className="btn-gold relative mt-8 inline-flex">
+              <Link
+                to="/donations"
+                className="btn-gold relative mt-8 inline-flex"
+              >
                 {t("home.donationsCta")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -419,7 +523,10 @@ export default function Home() {
       {/* ---------------- MAP ---------------- */}
       <section className="section-pad">
         <div className="container-wide">
-          <SectionHeading eyebrow={t("home.mapEyebrow")} title={t("home.mapTitle")} />
+          <SectionHeading
+            eyebrow={t("home.mapEyebrow")}
+            title={t("home.mapTitle")}
+          />
           <Reveal className="mt-12">
             <div className="relative overflow-hidden rounded-3xl shadow-soft">
               <iframe

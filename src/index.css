@@ -5,7 +5,9 @@
 @layer base {
   body {
     @apply bg-cream-50 text-ink-900 antialiased dark:bg-ink-950 dark:text-cream-100;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
   html[lang="si"] body {
     font-family: "Noto Sans Sinhala", "Poppins", sans-serif;
@@ -13,7 +15,10 @@
   ::selection {
     @apply bg-gold-500 text-ink-950;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display;
   }
 }
@@ -39,8 +44,13 @@
   }
 }
 
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 ::-webkit-scrollbar-thumb {
   @apply rounded-full bg-primary-900/30 dark:bg-gold-500/30;
   border: 2px solid transparent;
@@ -69,7 +79,11 @@ body::after {
   z-index: -49;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 90% 60% at 50% 35%, transparent 42%, rgba(25, 14, 11, 0.1) 100%),
+    radial-gradient(
+      ellipse 90% 60% at 50% 35%,
+      transparent 42%,
+      rgba(25, 14, 11, 0.1) 100%
+    ),
     linear-gradient(180deg, rgba(31, 18, 13, 0.02), rgba(31, 18, 13, 0.08));
 }
 html.dark body::before {
@@ -77,7 +91,11 @@ html.dark body::before {
 }
 html.dark body::after {
   background:
-    radial-gradient(ellipse 90% 60% at 50% 35%, transparent 35%, rgba(8, 5, 4, 0.2) 100%),
+    radial-gradient(
+      ellipse 90% 60% at 50% 35%,
+      transparent 35%,
+      rgba(8, 5, 4, 0.2) 100%
+    ),
     linear-gradient(180deg, rgba(9, 5, 4, 0.08), rgba(9, 5, 4, 0.2));
 }
 
@@ -92,23 +110,32 @@ body {
   position: relative;
   isolation: isolate;
 }
-.section-pad::before {
+/* .section-pad::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  border-block: 1px solid rgba(255, 246, 225, 0.2);
-  background: linear-gradient(90deg, rgba(255, 251, 240, 0.34), rgba(255, 249, 235, 0.22) 50%, rgba(255, 251, 240, 0.34));
-  backdrop-filter: blur(3px) saturate(105%);
-  -webkit-backdrop-filter: blur(3px) saturate(105%);
+  border-block: 1px solid rgba(255, 246, 225, 0.08);
+  background: transparent;
 }
 .dark .section-pad::before {
   border-color: rgba(255, 255, 255, 0.07);
-  background: linear-gradient(90deg, rgba(25, 16, 13, 0.24), rgba(36, 24, 19, 0.12) 50%, rgba(25, 16, 13, 0.24));
-}
+  background: transparent;
+} */
 
 section.bg-gradient-hero {
-  background-image: radial-gradient(900px 520px at 15% 10%, rgba(215, 176, 78, 0.1), transparent 62%), linear-gradient(105deg, rgba(36, 12, 10, 0.28), rgba(76, 27, 22, 0.12) 55%, rgba(25, 14, 12, 0.22));
+  background-image:
+    radial-gradient(
+      900px 520px at 15% 10%,
+      rgba(215, 176, 78, 0.1),
+      transparent 62%
+    ),
+    linear-gradient(
+      105deg,
+      rgba(36, 12, 10, 0.28),
+      rgba(76, 27, 22, 0.12) 55%,
+      rgba(25, 14, 12, 0.22)
+    );
 }
 .site-hero-tint {
   position: absolute;
@@ -123,37 +150,39 @@ section.bg-gradient-hero p {
 }
 
 footer.bg-gradient-hero {
-  background-image: linear-gradient(115deg, rgba(35, 12, 10, 0.78), rgba(72, 23, 18, 0.68), rgba(22, 14, 12, 0.8));
+  background-image: linear-gradient(
+    115deg,
+    rgba(35, 12, 10, 0.78),
+    rgba(72, 23, 18, 0.68),
+    rgba(22, 14, 12, 0.8)
+  );
   backdrop-filter: blur(9px) saturate(110%);
   -webkit-backdrop-filter: blur(9px) saturate(110%);
 }
 
 html.dark footer.bg-gradient-hero {
-  background-image: linear-gradient(115deg, rgba(35, 12, 10, 0.58), rgba(72, 23, 18, 0.42), rgba(22, 14, 12, 0.6));
+  background-image: linear-gradient(
+    115deg,
+    rgba(35, 12, 10, 0.58),
+    rgba(72, 23, 18, 0.42),
+    rgba(22, 14, 12, 0.6)
+  );
 }
 
 /* Frosted-glass treatment for every card/section surface already using
    these utility classes — border/shadow utilities on those same elements
    are untouched and keep working exactly as before. */
 .bg-white {
-  background-color: rgba(255, 253, 247, 0.62) !important;
-  backdrop-filter: blur(14px) saturate(125%);
-  -webkit-backdrop-filter: blur(14px) saturate(125%);
+  background-color: rgba(255, 253, 247, 0.92) !important;
 }
 .dark .dark\:bg-ink-900 {
-  background-color: rgba(35, 25, 22, 0.3) !important;
-  backdrop-filter: blur(12px) saturate(130%);
-  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  background-color: rgba(35, 25, 22, 0.75) !important;
 }
 .bg-cream-100\/60 {
-  background-color: rgba(249, 239, 214, 0.42) !important;
-  backdrop-filter: blur(14px) saturate(115%);
-  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  background-color: rgba(249, 239, 214, 0.74) !important;
 }
 .dark .dark\:bg-white\/\[0\.02\] {
   background-color: rgba(255, 255, 255, 0.025) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 .dark .dark\:bg-ink-950\/90 {
   background-color: rgba(22, 15, 13, 0.5) !important;
@@ -161,4 +190,44 @@ html.dark footer.bg-gradient-hero {
 .bg-cream-50,
 .dark .dark\:bg-ink-950 {
   background-color: transparent !important;
+}
+
+/* Navigation chrome must stay clearly legible over any scrolling page
+   content/photo — the atmospheric glass treatment above is for content
+   cards, not for the navbar's dropdown or mobile menu. This wins over the
+   rules above via specificity (they're scoped inside <header>), no JSX
+   changed. */
+header .bg-white {
+  background-color: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+html.dark header .dark\:bg-ink-950,
+html.dark header .dark\:bg-ink-900 {
+  background-color: rgba(22, 15, 13, 0.97) !important;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* Same reasoning for modal dialogs (e.g. the event detail popup) — they're
+   functional overlays, not atmospheric content cards. */
+.z-\[80\] .bg-white {
+  background-color: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+html.dark .z-\[80\] .dark\:bg-ink-900 {
+  background-color: rgba(22, 15, 13, 0.97) !important;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* Placeholder contrast in both themes */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(35, 25, 22, 0.4);
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: rgba(253, 248, 236, 0.35);
 }

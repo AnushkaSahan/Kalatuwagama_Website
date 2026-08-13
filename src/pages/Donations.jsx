@@ -40,31 +40,42 @@ export default function Donations() {
 
   return (
     <div>
-      <section className="relative flex min-h-[50vh] items-end overflow-hidden bg-gradient-hero pb-16 pt-32">
+      <section className="relative flex min-h-[50vh] items-center overflow-hidden bg-gradient-hero pb-16 pt-32">
         <HeroPhoto />
         <div className="pointer-events-none absolute -left-24 top-10 h-96 w-96 rounded-full bg-gold-500/10 blur-3xl" />
-        <div className="container-wide relative">
+        <div className="container-wide relative text-center">
           <Reveal>
-            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">{t("donations.eyebrow")}</span>
+            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">
+              {t("donations.eyebrow")}
+            </span>
           </Reveal>
           <Reveal delay={0.1}>
-            <h1 className="mt-5 font-display text-4xl font-semibold text-white sm:text-5xl">{t("donations.title")}</h1>
+            <h1 className="mt-5 font-display text-4xl font-semibold text-white sm:text-5xl">
+              {t("donations.title")}
+            </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 max-w-xl text-white/75">{t("donations.subtitle")}</p>
+            <p className="mx-auto mt-4 max-w-xl text-white/75">
+              {t("donations.subtitle")}
+            </p>
           </Reveal>
         </div>
       </section>
 
       <section className="section-pad">
         <div className="container-wide">
-          <SectionHeading eyebrow={t("donations.bankTitle")} title={t("donations.bankTitle")} />
+          <SectionHeading
+            eyebrow={t("donations.bankTitle")}
+            title={t("donations.bankTitle")}
+          />
 
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {loading ? (
               [1, 2].map((i) => <SkeletonCard key={i} className="h-64" />)
             ) : accounts.length === 0 ? (
-              <p className="col-span-full text-center text-ink-900/50 dark:text-cream-100/50">{t("common.noData")}</p>
+              <p className="col-span-full text-center text-ink-900/50 dark:text-cream-100/50">
+                {t("common.noData")}
+              </p>
             ) : (
               accounts.map((acc, i) => (
                 <Reveal key={acc.id} delay={i * 0.1}>
@@ -131,9 +142,13 @@ export default function Donations() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.2} className="mt-6 flex items-center justify-center gap-2 text-sm text-ink-900/45 dark:text-cream-100/45">
+          <Reveal
+            delay={0.2}
+            className="mt-6 flex items-center justify-center gap-2 text-sm text-ink-900/45 dark:text-cream-100/45"
+          >
             <ShieldCheck className="h-4 w-4 text-leaf-500" />
-            All contributions are used solely for temple, Daham Pasala and foundation activities.
+            All contributions are used solely for temple, Daham Pasala and
+            foundation activities.
           </Reveal>
         </div>
       </section>

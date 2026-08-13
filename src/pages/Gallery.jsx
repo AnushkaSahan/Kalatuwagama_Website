@@ -21,7 +21,10 @@ export default function GalleryPage() {
   useEffect(() => {
     (async () => {
       try {
-        const [galleryRes, eventsRes] = await Promise.all([getGalleryItems(), getEvents()]);
+        const [galleryRes, eventsRes] = await Promise.all([
+          getGalleryItems(),
+          getEvents(),
+        ]);
         setPhotos(galleryRes.data || []);
         setEvents(eventsRes.data || []);
       } catch (e) {
@@ -39,30 +42,40 @@ export default function GalleryPage() {
   }, [events]);
 
   const albums = useMemo(() => {
-    const withEvent = events.filter((ev) => photos.some((p) => p.eventId === ev.id));
+    const withEvent = events.filter((ev) =>
+      photos.some((p) => p.eventId === ev.id),
+    );
     return withEvent;
   }, [events, photos]);
 
   const filtered = useMemo(() => {
     const list =
-      activeEvent === "all" ? photos : photos.filter((p) => p.eventId === activeEvent);
+      activeEvent === "all"
+        ? photos
+        : photos.filter((p) => p.eventId === activeEvent);
     return list.map((p) => ({ ...p, eventTitle: eventTitleMap[p.eventId] }));
   }, [photos, activeEvent, eventTitleMap]);
 
   return (
     <div>
-      <section className="relative flex min-h-[50vh] items-end overflow-hidden bg-gradient-hero pb-16 pt-32">
+      <section className="relative flex min-h-[50vh] items-center overflow-hidden bg-gradient-hero pb-16 pt-32">
         <HeroPhoto />
         <div className="pointer-events-none absolute -left-24 top-10 h-96 w-96 rounded-full bg-gold-500/10 blur-3xl" />
-        <div className="container-wide relative">
+        <div className="container-wide relative text-center">
           <Reveal>
-            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">{t("gallery.eyebrow")}</span>
+            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">
+              {t("gallery.eyebrow")}
+            </span>
           </Reveal>
           <Reveal delay={0.1}>
-            <h1 className="mt-5 font-display text-4xl font-semibold text-white sm:text-5xl">{t("gallery.title")}</h1>
+            <h1 className="mt-5 font-display text-4xl font-semibold text-white sm:text-5xl">
+              {t("gallery.title")}
+            </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 max-w-xl text-white/75">{t("gallery.subtitle")}</p>
+            <p className="mx-auto mt-4 max-w-xl text-white/75">
+              {t("gallery.subtitle")}
+            </p>
           </Reveal>
         </div>
       </section>
@@ -110,11 +123,17 @@ export default function GalleryPage() {
             ) : filtered.length === 0 ? (
               <div className="col-span-full flex flex-col items-center gap-3 py-16 text-center">
                 <Images className="h-10 w-10 text-ink-900/20 dark:text-cream-100/20" />
-                <p className="text-ink-900/50 dark:text-cream-100/50">{t("common.noData")}</p>
+                <p className="text-ink-900/50 dark:text-cream-100/50">
+                  {t("common.noData")}
+                </p>
               </div>
             ) : (
               filtered.map((photo, i) => (
-                <Reveal key={photo.id} delay={(i % 8) * 0.04} className="mb-3 break-inside-avoid">
+                <Reveal
+                  key={photo.id}
+                  delay={(i % 8) * 0.04}
+                  className="mb-3 break-inside-avoid"
+                >
                   <button
                     type="button"
                     onClick={() => setLightboxIndex(i)}
@@ -124,10 +143,15 @@ export default function GalleryPage() {
                       src={photo.imageUrl}
                       alt={photo.title || ""}
                       className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      style={{ aspectRatio: i % 3 === 0 ? "3/4" : i % 3 === 1 ? "4/3" : "1/1" }}
+                      style={{
+                        aspectRatio:
+                          i % 3 === 0 ? "3/4" : i % 3 === 1 ? "4/3" : "1/1",
+                      }}
                     />
                     <div className="absolute inset-0 flex items-end bg-gradient-to-t from-ink-950/60 via-transparent to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
-                      <p className="text-sm font-medium text-white">{photo.eventTitle}</p>
+                      <p className="text-sm font-medium text-white">
+                        {photo.eventTitle}
+                      </p>
                     </div>
                   </button>
                 </Reveal>

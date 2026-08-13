@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Droplet, GraduationCap, HeartHandshake, HandHeart, Send } from "lucide-react";
+import {
+  Droplet,
+  GraduationCap,
+  HeartHandshake,
+  HandHeart,
+  Send,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import { getFoundationProjects } from "../api/foundationProjects";
 import { getGalleryItems } from "../api/gallery";
@@ -19,7 +25,11 @@ export default function Foundation() {
   const [loading, setLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const [volunteer, setVolunteer] = useState({ fullName: "", email: "", message: "" });
+  const [volunteer, setVolunteer] = useState({
+    fullName: "",
+    email: "",
+    message: "",
+  });
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -51,7 +61,8 @@ export default function Foundation() {
         fullName: volunteer.fullName,
         email: volunteer.email,
         subject: "Volunteer Registration",
-        message: volunteer.message || "I would like to volunteer with the foundation.",
+        message:
+          volunteer.message || "I would like to volunteer with the foundation.",
       });
       toast.success("Thank you for signing up — we'll be in touch soon!");
       setVolunteer({ fullName: "", email: "", message: "" });
@@ -64,12 +75,14 @@ export default function Foundation() {
 
   return (
     <div>
-      <section className="relative flex min-h-[60vh] items-end overflow-hidden bg-gradient-hero pb-16 pt-32">
+      <section className="relative flex min-h-[60vh] items-center overflow-hidden bg-gradient-hero pb-16 pt-32">
         <HeroPhoto />
         <div className="pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full bg-leaf-500/10 blur-3xl" />
-        <div className="container-wide relative">
+        <div className="container-wide relative text-center">
           <Reveal>
-            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">{t("foundation.eyebrow")}</span>
+            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">
+              {t("foundation.eyebrow")}
+            </span>
           </Reveal>
           <Reveal delay={0.1}>
             <h1 className="mt-5 font-display text-4xl font-semibold text-white sm:text-5xl">
@@ -77,7 +90,9 @@ export default function Foundation() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 max-w-xl text-white/75">{t("foundation.subtitle")}</p>
+            <p className="mx-auto mt-4 max-w-xl text-white/75">
+              {t("foundation.subtitle")}
+            </p>
           </Reveal>
         </div>
       </section>
@@ -85,19 +100,28 @@ export default function Foundation() {
       {/* PROJECTS */}
       <section id="projects" className="section-pad scroll-mt-24">
         <div className="container-wide">
-          <SectionHeading eyebrow={t("nav.projects")} title={t("foundation.projectsTitle")} />
+          <SectionHeading
+            eyebrow={t("nav.projects")}
+            title={t("foundation.projectsTitle")}
+          />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {loading ? (
               [1, 2, 3].map((i) => <SkeletonCard key={i} className="h-72" />)
             ) : projects.length === 0 ? (
-              <p className="col-span-full text-center text-ink-900/50 dark:text-cream-100/50">{t("common.noData")}</p>
+              <p className="col-span-full text-center text-ink-900/50 dark:text-cream-100/50">
+                {t("common.noData")}
+              </p>
             ) : (
               projects.map((project, i) => (
                 <Reveal key={project.id} delay={i * 0.08}>
                   <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-ink-900/5 bg-white shadow-card dark:border-white/10 dark:bg-ink-900">
                     <div className="relative h-44 w-full overflow-hidden bg-ink-900/5 dark:bg-white/5">
                       {project.imageUrl ? (
-                        <FocalImage src={project.imageUrl} alt={project.title} className="h-full w-full object-cover" />
+                        <FocalImage
+                          src={project.imageUrl}
+                          alt={project.title}
+                          className="h-full w-full object-cover"
+                        />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gradient-maroon text-white/30">
                           <HeartHandshake className="h-10 w-10" />
@@ -121,26 +145,38 @@ export default function Foundation() {
       </section>
 
       {/* BLOOD DONATION + EDUCATION */}
-      <section id="blood" className="section-pad scroll-mt-24 bg-cream-100/60 dark:bg-white/[0.02]">
+      <section
+        id="blood"
+        className="section-pad scroll-mt-24 bg-cream-100/60 dark:bg-white/[0.02]"
+      >
         <div className="container-wide grid gap-6 lg:grid-cols-2">
           <Reveal>
             <div className="flex h-full flex-col rounded-3xl bg-gradient-maroon p-8 text-white shadow-soft sm:p-10">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-red-300">
                 <Droplet className="h-7 w-7" />
               </div>
-              <h3 className="mt-6 font-display text-2xl font-semibold">{t("foundation.bloodTitle")}</h3>
-              <p className="mt-3 flex-1 text-white/70">{t("foundation.bloodText")}</p>
+              <h3 className="mt-6 font-display text-2xl font-semibold">
+                {t("foundation.bloodTitle")}
+              </h3>
+              <p className="mt-3 flex-1 text-white/70">
+                {t("foundation.bloodText")}
+              </p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div id="education" className="flex h-full scroll-mt-24 flex-col rounded-3xl border border-ink-900/5 bg-white p-8 shadow-card dark:border-white/10 dark:bg-ink-900 sm:p-10">
+            <div
+              id="education"
+              className="flex h-full scroll-mt-24 flex-col rounded-3xl border border-ink-900/5 bg-white p-8 shadow-card dark:border-white/10 dark:bg-ink-900 sm:p-10"
+            >
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-600 dark:text-gold-400">
                 <GraduationCap className="h-7 w-7" />
               </div>
               <h3 className="mt-6 font-display text-2xl font-semibold text-ink-900 dark:text-cream-50">
                 {t("foundation.eduTitle")}
               </h3>
-              <p className="mt-3 flex-1 text-ink-900/60 dark:text-cream-100/60">{t("foundation.eduText")}</p>
+              <p className="mt-3 flex-1 text-ink-900/60 dark:text-cream-100/60">
+                {t("foundation.eduText")}
+              </p>
             </div>
           </Reveal>
         </div>
@@ -150,8 +186,14 @@ export default function Foundation() {
       <section id="volunteer" className="section-pad scroll-mt-24">
         <div className="container-wide grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <SectionHeading align="left" eyebrow={t("nav.volunteer")} title={t("foundation.volunteerTitle")} />
-            <p className="mt-6 max-w-md text-ink-900/60 dark:text-cream-100/60">{t("foundation.volunteerText")}</p>
+            <SectionHeading
+              align="left"
+              eyebrow={t("nav.volunteer")}
+              title={t("foundation.volunteerTitle")}
+            />
+            <p className="mt-6 max-w-md text-ink-900/60 dark:text-cream-100/60">
+              {t("foundation.volunteerText")}
+            </p>
             <div className="mt-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-leaf-100 text-leaf-600">
               <HandHeart className="h-7 w-7" />
             </div>
@@ -166,7 +208,9 @@ export default function Foundation() {
                   type="text"
                   placeholder="Full name"
                   value={volunteer.fullName}
-                  onChange={(e) => setVolunteer({ ...volunteer, fullName: e.target.value })}
+                  onChange={(e) =>
+                    setVolunteer({ ...volunteer, fullName: e.target.value })
+                  }
                   className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
                   required
                 />
@@ -174,7 +218,9 @@ export default function Foundation() {
                   type="email"
                   placeholder="Email address"
                   value={volunteer.email}
-                  onChange={(e) => setVolunteer({ ...volunteer, email: e.target.value })}
+                  onChange={(e) =>
+                    setVolunteer({ ...volunteer, email: e.target.value })
+                  }
                   className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
                   required
                 />
@@ -182,11 +228,17 @@ export default function Foundation() {
                   placeholder="How would you like to help?"
                   rows="3"
                   value={volunteer.message}
-                  onChange={(e) => setVolunteer({ ...volunteer, message: e.target.value })}
+                  onChange={(e) =>
+                    setVolunteer({ ...volunteer, message: e.target.value })
+                  }
                   className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
                 />
               </div>
-              <button type="submit" disabled={submitting} className="btn-primary mt-5 w-full">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="btn-primary mt-5 w-full"
+              >
                 <Send className="h-4 w-4" />
                 {submitting ? "Sending..." : t("foundation.volunteerCta")}
               </button>
@@ -196,14 +248,20 @@ export default function Foundation() {
       </section>
 
       {/* GALLERY */}
-      <section className="section-pad bg-cream-100/60 dark:bg-white/[0.02]">
+      {/* <section className="section-pad bg-cream-100/60 dark:bg-white/[0.02]">
         <div className="container-wide">
           <SectionHeading title={t("foundation.galleryTitle")} />
           <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {loading
-              ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} className="aspect-square" />)
+              ? Array.from({ length: 8 }).map((_, i) => (
+                  <SkeletonCard key={i} className="aspect-square" />
+                ))
               : photos.map((photo, i) => (
-                  <Reveal key={photo.id} delay={i * 0.04} className="aspect-square">
+                  <Reveal
+                    key={photo.id}
+                    delay={i * 0.04}
+                    className="aspect-square"
+                  >
                     <button
                       type="button"
                       onClick={() => setLightboxIndex(i)}
@@ -219,7 +277,7 @@ export default function Foundation() {
                 ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <Lightbox
         photos={photos}
