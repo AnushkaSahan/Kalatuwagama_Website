@@ -105,7 +105,7 @@ export default function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-white/65">
             <li className="flex items-start gap-2.5">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-              Kalatuwagama, North Western Province, Sri Lanka
+              {t("footer.address")}
             </li>
             <li className="flex items-center gap-2.5">
               <Phone className="h-4 w-4 shrink-0 text-gold-400" />

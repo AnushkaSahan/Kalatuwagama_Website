@@ -128,7 +128,8 @@
     "title": "Events",
     "subtitle": "Religious observances, Daham Pasala programs and community gatherings.",
     "noUpcoming": "No upcoming events at the moment.",
-    "noPast": "No past events to show."
+    "noPast": "No past events to show.",
+    "past": "Past"
   },
   "donations": {
     "eyebrow": "Support the Temple",
@@ -169,6 +170,10 @@
     "contactInfo": "Contact Information",
     "followUs": "Follow Us",
     "emergency": "Emergency Contacts",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "address": "Kalatuwagama, North Western Province, Sri Lanka"
+  },
+  "notFound": {
+    "message": "This page could not be found."
   }
 }

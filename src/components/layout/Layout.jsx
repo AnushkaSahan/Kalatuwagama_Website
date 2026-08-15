@@ -7,7 +7,7 @@ export default function Layout() {
   const location = useLocation();
 
   return (
-    <div className="flex min-h-screen flex-col bg-cream-50 dark:bg-ink-950">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-black">
       <Navbar />
       <main className="flex-1">
         <AnimatePresence mode="wait">

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-cream-50 text-ink-900 antialiased dark:bg-ink-950 dark:text-cream-100;
+    @apply bg-white text-ink-900 antialiased dark:bg-black dark:text-cream-100;
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
@@ -37,7 +37,7 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-maroon px-6 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:shadow-gold;
   }
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-primary-900/20 bg-white/70 px-6 py-3 text-sm font-semibold text-primary-900 backdrop-blur transition-all duration-300 hover:border-primary-900 hover:bg-white dark:border-white/20 dark:bg-white/5 dark:text-cream-100 dark:hover:bg-white/10;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-primary-900/20 bg-white px-6 py-3 text-sm font-semibold text-primary-900 transition-all duration-300 hover:border-primary-900 hover:bg-cream-50 dark:border-white/20 dark:bg-black dark:text-cream-100 dark:hover:bg-ink-950;
   }
   .btn-gold {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-gold px-6 py-3 text-sm font-semibold text-ink-950 shadow-gold transition-all duration-300 hover:-translate-y-0.5;
@@ -58,70 +58,10 @@
 }
 
 /* ============================================================
-   Continuous temple canvas
+   Hero / footer maroon-gradient sections (bg-gradient-hero utility
+   from tailwind.config.js is a fully opaque gradient — these extra
+   layers just add depth on top of it, no photo dependency).
    ============================================================ */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -50;
-  background-image: url("/temple-sunset.jpg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -49;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse 90% 60% at 50% 35%,
-      transparent 42%,
-      rgba(25, 14, 11, 0.1) 100%
-    ),
-    linear-gradient(180deg, rgba(31, 18, 13, 0.02), rgba(31, 18, 13, 0.08));
-}
-html.dark body::before {
-  filter: saturate(0.86) brightness(0.78);
-}
-html.dark body::after {
-  background:
-    radial-gradient(
-      ellipse 90% 60% at 50% 35%,
-      transparent 35%,
-      rgba(8, 5, 4, 0.2) 100%
-    ),
-    linear-gradient(180deg, rgba(9, 5, 4, 0.08), rgba(9, 5, 4, 0.2));
-}
-
-/* Let the fixed photo show through the page/body base color */
-body {
-  background-color: transparent !important;
-}
-
-/* Content sits in soft, translucent layers so the same temple setting remains
-   visible from the opening hero through the final footer. */
-.section-pad {
-  position: relative;
-  isolation: isolate;
-}
-/* .section-pad::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-block: 1px solid rgba(255, 246, 225, 0.08);
-  background: transparent;
-}
-.dark .section-pad::before {
-  border-color: rgba(255, 255, 255, 0.07);
-  background: transparent;
-} */
 
 section.bg-gradient-hero {
   background-image:
@@ -135,7 +75,13 @@ section.bg-gradient-hero {
       rgba(36, 12, 10, 0.28),
       rgba(76, 27, 22, 0.12) 55%,
       rgba(25, 14, 12, 0.22)
-    );
+    ),
+    radial-gradient(
+      1200px 600px at 15% -10%,
+      rgba(201, 160, 44, 0.25) 0%,
+      transparent 55%
+    ),
+    linear-gradient(160deg, #3f100f 0%, #6f1d1b 55%, #231916 100%);
 }
 .site-hero-tint {
   position: absolute;
@@ -152,72 +98,18 @@ section.bg-gradient-hero p {
 footer.bg-gradient-hero {
   background-image: linear-gradient(
     115deg,
-    rgba(35, 12, 10, 0.78),
-    rgba(72, 23, 18, 0.68),
-    rgba(22, 14, 12, 0.8)
-  );
-  backdrop-filter: blur(9px) saturate(110%);
-  -webkit-backdrop-filter: blur(9px) saturate(110%);
-}
-
-html.dark footer.bg-gradient-hero {
-  background-image: linear-gradient(
-    115deg,
-    rgba(35, 12, 10, 0.58),
-    rgba(72, 23, 18, 0.42),
-    rgba(22, 14, 12, 0.6)
+    #240c0a 0%,
+    #481712 55%,
+    #160e0c 100%
   );
 }
 
-/* Frosted-glass treatment for every card/section surface already using
-   these utility classes — border/shadow utilities on those same elements
-   are untouched and keep working exactly as before. */
-.bg-white {
-  background-color: rgba(255, 253, 247, 0.92) !important;
-}
-.dark .dark\:bg-ink-900 {
-  background-color: rgba(35, 25, 22, 0.75) !important;
-}
-.bg-cream-100\/60 {
-  background-color: rgba(249, 239, 214, 0.74) !important;
-}
-.dark .dark\:bg-white\/\[0\.02\] {
-  background-color: rgba(255, 255, 255, 0.025) !important;
-}
-.dark .dark\:bg-ink-950\/90 {
-  background-color: rgba(22, 15, 13, 0.5) !important;
-}
-.bg-cream-50,
-.dark .dark\:bg-ink-950 {
-  background-color: transparent !important;
-}
-
-/* Navigation chrome must stay clearly legible over any scrolling page
-   content/photo — the atmospheric glass treatment above is for content
-   cards, not for the navbar's dropdown or mobile menu. This wins over the
-   rules above via specificity (they're scoped inside <header>), no JSX
-   changed. */
-header .bg-white {
-  background-color: rgba(255, 255, 255, 0.97) !important;
+/* Navbar stays solid + blurred while scrolling over page content. */
+header.bg-white {
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
-html.dark header .dark\:bg-ink-950,
-html.dark header .dark\:bg-ink-900 {
-  background-color: rgba(22, 15, 13, 0.97) !important;
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-}
-
-/* Same reasoning for modal dialogs (e.g. the event detail popup) — they're
-   functional overlays, not atmospheric content cards. */
-.z-\[80\] .bg-white {
-  background-color: rgba(255, 255, 255, 0.97) !important;
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-}
-html.dark .z-\[80\] .dark\:bg-ink-900 {
-  background-color: rgba(22, 15, 13, 0.97) !important;
+html.dark header.dark\:bg-black {
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
 }

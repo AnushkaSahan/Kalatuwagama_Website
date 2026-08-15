@@ -165,7 +165,10 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.32}>
             <div className="mt-9 flex flex-wrap gap-4">
-              <Link to="/temple" className="btn-gold">
+              <Link
+                to="/temple"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-ink-950 shadow-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
+              >
                 <Landmark className="h-4 w-4" />
                 {t("home.heroCtaPrimary")}
                 <ArrowRight className="h-4 w-4" />
@@ -480,7 +483,7 @@ export default function Home() {
               </p>
               <Link
                 to="/donations"
-                className="btn-gold relative mt-8 inline-flex"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-ink-950 shadow-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 relative mt-8 inline-flex"
               >
                 {t("home.donationsCta")}
                 <ArrowRight className="h-4 w-4" />

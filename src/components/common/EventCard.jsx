@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Calendar, MapPin } from "lucide-react";
 import FocalImage from "./FocalImage";
 
@@ -18,6 +19,7 @@ const formatDate = (value) => {
 };
 
 export default function EventCard({ event, index = 0 }) {
+  const { t } = useTranslation();
   const date = formatDate(event.eventDate || event.date);
   const isPast = date && new Date(event.eventDate || event.date) < new Date();
 
@@ -44,8 +46,8 @@ export default function EventCard({ event, index = 0 }) {
           </div>
         )}
         {isPast && (
-          <div className="absolute right-4 top-4 rounded-full bg-ink-900/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur">
-            Past
+          <div className="absolute right-4 top-4 rounded-full bg-ink-900/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur dark:bg-black/60">
+            {t("events.past")}
           </div>
         )}
       </div>

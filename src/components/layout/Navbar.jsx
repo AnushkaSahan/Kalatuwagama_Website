@@ -92,7 +92,7 @@ export default function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         transparent
           ? "bg-transparent py-5"
-          : "bg-white/90 py-3 shadow-soft backdrop-blur-md dark:bg-ink-950/90"
+          : "bg-white py-3 shadow-soft backdrop-blur-md dark:bg-black"
       }`}
     >
       <div className="container-wide flex items-center justify-between gap-4">
@@ -116,7 +116,9 @@ export default function Navbar() {
             </p>
             <p
               className={`text-[10px] uppercase tracking-[0.25em] ${
-                transparent ? "text-white/60" : "text-ink-900/50 dark:text-cream-100/50"
+                transparent
+                  ? "text-white/60"
+                  : "text-ink-900/50 dark:text-cream-100/50"
               }`}
             >
               Rajamaha Viharaya
@@ -137,7 +139,9 @@ export default function Navbar() {
                 to={item.href}
                 className={({ isActive }) =>
                   `flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${linkColor} ${
-                    isActive && !transparent ? "text-primary-900 dark:text-gold-400" : ""
+                    isActive && !transparent
+                      ? "text-primary-900 dark:text-gold-400"
+                      : ""
                   }`
                 }
               >
@@ -185,10 +189,17 @@ export default function Navbar() {
             className={`rounded-full p-2 transition-colors ${linkColor}`}
             title="Toggle theme"
           >
-            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {isDark ? (
+              <Sun className="h-4 w-4" />
+            ) : (
+              <Moon className="h-4 w-4" />
+            )}
           </button>
-          <Link to="/donations" className="btn-gold ml-2 !px-5 !py-2.5 text-xs">
-            <Heart className="h-3.5 w-3.5" />
+          <Link
+            to="/donations"
+            className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-ink-950 shadow-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
+          >
+            <Heart className="h-4 w-4" />
             {t("nav.donations")}
           </Link>
         </div>
@@ -201,13 +212,17 @@ export default function Navbar() {
             transparent ? "text-white" : "text-ink-900 dark:text-cream-50"
           }`}
         >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="mt-3 max-h-[80vh] overflow-y-auto border-t border-ink-900/5 bg-white px-5 py-4 dark:border-white/10 dark:bg-ink-950 lg:hidden">
+        <div className="mt-3 max-h-[80vh] overflow-y-auto border-t border-ink-900/5 bg-white px-5 py-4 dark:border-white/10 dark:bg-black lg:hidden">
           <nav className="flex flex-col gap-1">
             {NAV.map((item) => (
               <div key={item.key}>
@@ -236,7 +251,9 @@ export default function Navbar() {
           <div className="mt-4 flex items-center justify-between border-t border-ink-900/5 pt-4 dark:border-white/10">
             <button
               type="button"
-              onClick={() => changeLanguage(i18n.language === "en" ? "si" : "en")}
+              onClick={() =>
+                changeLanguage(i18n.language === "en" ? "si" : "en")
+              }
               className="flex items-center gap-1.5 text-sm font-semibold text-ink-900 dark:text-cream-50"
             >
               <Languages className="h-4 w-4" />
@@ -247,7 +264,11 @@ export default function Navbar() {
               onClick={toggleTheme}
               className="flex items-center gap-1.5 text-sm font-semibold text-ink-900 dark:text-cream-50"
             >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {isDark ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
               {isDark ? "Light" : "Dark"}
             </button>
           </div>
