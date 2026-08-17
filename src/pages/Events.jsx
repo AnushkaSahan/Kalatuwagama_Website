@@ -8,6 +8,7 @@ import SectionHeading from "../components/common/SectionHeading";
 import EventCard from "../components/common/EventCard";
 import SkeletonCard from "../components/common/SkeletonCard";
 import FocalImage from "../components/common/FocalImage";
+import { parseLocalDateTime } from "../utils/datetime";
 
 export default function Events() {
   const { t } = useTranslation();
@@ -30,18 +31,14 @@ export default function Events() {
   }, []);
 
   const now = Date.now();
+  const getTime = (e) =>
+    parseLocalDateTime(e.eventDate || e.date)?.getTime() || 0;
   const upcoming = events
-    .filter((e) => new Date(e.eventDate || e.date).getTime() >= now)
-    .sort(
-      (a, b) =>
-        new Date(a.eventDate || a.date) - new Date(b.eventDate || b.date),
-    );
+    .filter((e) => getTime(e) >= now)
+    .sort((a, b) => getTime(a) - getTime(b));
   const past = events
-    .filter((e) => new Date(e.eventDate || e.date).getTime() < now)
-    .sort(
-      (a, b) =>
-        new Date(b.eventDate || b.date) - new Date(a.eventDate || a.date),
-    );
+    .filter((e) => getTime(e) < now)
+    .sort((a, b) => getTime(b) - getTime(a));
 
   const list = tab === "upcoming" ? upcoming : past;
 
@@ -142,9 +139,9 @@ export default function Events() {
               <div className="mt-4 flex flex-wrap gap-4 text-sm text-ink-900/60 dark:text-cream-100/60">
                 <span className="flex items-center gap-1.5">
                   <Calendar className="h-4 w-4" />
-                  {new Date(
+                  {parseLocalDateTime(
                     selected.eventDate || selected.date,
-                  ).toLocaleDateString("en-US", {
+                  )?.toLocaleDateString("en-US", {
                     weekday: "long",
                     month: "long",
                     day: "numeric",
@@ -153,9 +150,9 @@ export default function Events() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Clock className="h-4 w-4" />
-                  {new Date(
+                  {parseLocalDateTime(
                     selected.eventDate || selected.date,
-                  ).toLocaleTimeString("en-US", {
+                  )?.toLocaleTimeString("en-US", {
                     hour: "numeric",
                     minute: "2-digit",
                   })}

@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { Calendar, MapPin } from "lucide-react";
 import FocalImage from "./FocalImage";
+import { parseLocalDateTime } from "../../utils/datetime";
 
 const formatDate = (value) => {
   if (!value) return null;
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return null;
+  const date = parseLocalDateTime(value);
+  if (!date || Number.isNaN(date.getTime())) return null;
   return {
     day: date.toLocaleDateString("en-US", { day: "2-digit" }),
     month: date.toLocaleDateString("en-US", { month: "short" }),
@@ -21,7 +22,8 @@ const formatDate = (value) => {
 export default function EventCard({ event, index = 0 }) {
   const { t } = useTranslation();
   const date = formatDate(event.eventDate || event.date);
-  const isPast = date && new Date(event.eventDate || event.date) < new Date();
+  const isPast =
+    date && parseLocalDateTime(event.eventDate || event.date) < new Date();
 
   return (
     <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-ink-900/5 bg-white shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft dark:border-white/10 dark:bg-ink-900">

@@ -27,6 +27,7 @@ import SectionHeading from "../components/common/SectionHeading";
 import EventCard from "../components/common/EventCard";
 import FocalImage from "../components/common/FocalImage";
 import SkeletonCard from "../components/common/SkeletonCard";
+import { parseLocalDateTime } from "../utils/datetime";
 
 const TEMPLE_LOCATION = {
   lat: 7.684082,
@@ -94,10 +95,15 @@ export default function Home() {
 
         const now = Date.now();
         const upcoming = (eventsRes.data || [])
-          .filter((e) => new Date(e.eventDate || e.date).getTime() >= now)
+          .filter(
+            (e) =>
+              (parseLocalDateTime(e.eventDate || e.date)?.getTime() || 0) >=
+              now,
+          )
           .sort(
             (a, b) =>
-              new Date(a.eventDate || a.date) - new Date(b.eventDate || b.date),
+              (parseLocalDateTime(a.eventDate || a.date)?.getTime() || 0) -
+              (parseLocalDateTime(b.eventDate || b.date)?.getTime() || 0),
           )
           .slice(0, 3);
         setEvents(upcoming);
@@ -111,7 +117,9 @@ export default function Home() {
         setPhotos(galleryList.slice(0, 6));
 
         const newsList = [...(newsRes.data || [])].sort(
-          (a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0),
+          (a, b) =>
+            (parseLocalDateTime(b.publishDate)?.getTime() || 0) -
+            (parseLocalDateTime(a.publishDate)?.getTime() || 0),
         );
         setNews(newsList.slice(0, 3));
       } catch (error) {
@@ -165,10 +173,7 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.32}>
             <div className="mt-9 flex flex-wrap gap-4">
-              <Link
-                to="/temple"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-ink-950 shadow-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
-              >
+              <Link to="/temple" className="btn-gold">
                 <Landmark className="h-4 w-4" />
                 {t("home.heroCtaPrimary")}
                 <ArrowRight className="h-4 w-4" />
@@ -444,8 +449,8 @@ export default function Home() {
                     <Reveal key={item.id} delay={i * 0.1}>
                       <div className="flex h-full flex-col rounded-2xl border border-ink-900/5 bg-white p-6 shadow-card dark:border-white/10 dark:bg-ink-900">
                         <p className="text-xs font-semibold uppercase tracking-wide text-gold-600 dark:text-gold-400">
-                          {new Date(
-                            item.createdAt || Date.now(),
+                          {(
+                            parseLocalDateTime(item.publishDate) || new Date()
                           ).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
@@ -483,7 +488,7 @@ export default function Home() {
               </p>
               <Link
                 to="/donations"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-ink-950 shadow-gold transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 relative mt-8 inline-flex"
+                className="btn-gold relative mt-8 inline-flex"
               >
                 {t("home.donationsCta")}
                 <ArrowRight className="h-4 w-4" />
