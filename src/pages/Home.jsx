@@ -69,6 +69,15 @@ const TESTIMONIALS = [
   },
 ];
 
+const PARTICLE_POSITIONS = [
+  { top: "15%", left: "8%", delay: "0s", size: "h-1.5 w-1.5" },
+  { top: "25%", left: "92%", delay: "1.2s", size: "h-2 w-2" },
+  { top: "60%", left: "5%", delay: "2.4s", size: "h-1 w-1" },
+  { top: "70%", left: "88%", delay: "0.8s", size: "h-1.5 w-1.5" },
+  { top: "45%", left: "95%", delay: "1.8s", size: "h-1 w-1" },
+  { top: "80%", left: "12%", delay: "3s", size: "h-2 w-2" },
+];
+
 export default function Home() {
   const { t } = useTranslation();
   const [events, setEvents] = useState([]);
@@ -132,21 +141,38 @@ export default function Home() {
 
   return (
     <div>
-      {/* ---------------- HERO ---------------- */}
+      {/* ── HERO ── */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-gradient-hero">
         <HeroPhoto />
-        <div className="pointer-events-none absolute -right-32 top-1/4 h-[420px] w-[420px] animate-float rounded-full bg-gold-500/10 blur-3xl" />
-        <div className="pointer-events-none absolute -left-24 bottom-0 h-[360px] w-[360px] rounded-full bg-primary-500/10 blur-3xl" />
+
+        {/* Ambient glow blobs */}
+        <div className="pointer-events-none absolute -right-32 top-1/4 h-[480px] w-[480px] animate-float rounded-full bg-gold-500/[0.12] blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 h-[400px] w-[400px] rounded-full bg-primary-500/[0.10] blur-3xl" />
+        <div className="pointer-events-none absolute left-1/3 top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full bg-gold-500/[0.06] blur-3xl" />
+
+        {/* Floating particles */}
+        {PARTICLE_POSITIONS.map((p, i) => (
+          <div
+            key={i}
+            className={`pointer-events-none absolute ${p.size} rounded-full bg-gold-400/40`}
+            style={{
+              top: p.top,
+              left: p.left,
+              animation: `particle-float 8s ease-in-out ${p.delay} infinite`,
+            }}
+          />
+        ))}
 
         <div className="container-wide relative z-10 flex min-h-screen flex-col justify-center pb-28 pt-24">
           <Reveal>
-            <span className="eyebrow border-primary-400/40 bg-white/10 text-gold-300">
+            <span className="eyebrow border-white/20 bg-white/[0.08] text-gold-300 backdrop-blur-sm">
               <Sparkles className="h-3.5 w-3.5" />
               {t("home.heroEyebrow")}
             </span>
           </Reveal>
+
           <Reveal delay={0.1}>
-            <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.1] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
               {heroLines.slice(0, -1).map((line, i) => (
                 <span key={i}>
                   {line}
@@ -154,12 +180,12 @@ export default function Home() {
                 </span>
               ))}
               {lastLineRest ? `${lastLineRest} ` : ""}
-              <span className="text-gold-400">{lastWord}</span>
+              <span className="text-gradient-gold">{lastWord}</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.18}>
-            <div className="mt-7 flex max-w-md items-center gap-3 text-gold-400/60">
+            <div className="mt-7 flex max-w-xs items-center gap-3 text-gold-400/50">
               <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold-400/50 to-gold-400/50" />
               <Flower2 className="h-4 w-4 shrink-0" />
               <span className="h-px flex-1 bg-gradient-to-l from-transparent via-gold-400/50 to-gold-400/50" />
@@ -167,10 +193,11 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.24}>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
               {t("home.heroSubtitle")}
             </p>
           </Reveal>
+
           <Reveal delay={0.32}>
             <div className="mt-9 flex flex-wrap gap-4">
               <Link to="/temple" className="btn-gold">
@@ -180,7 +207,7 @@ export default function Home() {
               </Link>
               <Link
                 to="/contact"
-                className="btn-outline !border-white/30 !bg-white/10 !text-white hover:!bg-white/20"
+                className="btn-outline !border-white/25 !bg-white/[0.08] !text-white backdrop-blur-sm hover:!bg-white/[0.15]"
               >
                 <Calendar className="h-4 w-4" />
                 {t("home.heroCtaSecondary")}
@@ -189,17 +216,17 @@ export default function Home() {
           </Reveal>
 
           {/* Feature pills */}
-          <Reveal delay={0.4}>
+          <Reveal delay={0.42}>
             <div className="mt-14 flex max-w-2xl flex-wrap gap-3">
               {HERO_FEATURES.map((feature) => (
                 <div
                   key={feature.label}
-                  className="flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] py-2 pl-2 pr-4 backdrop-blur-sm"
+                  className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.05] py-2 pl-2 pr-4 backdrop-blur-sm transition-all duration-300 hover:border-gold-400/30 hover:bg-white/[0.09]"
                 >
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-gold-300">
                     <feature.icon className="h-4 w-4" />
                   </span>
-                  <span className="text-xs font-medium leading-tight text-white/85">
+                  <span className="text-xs font-medium leading-tight text-white/80">
                     {feature.label}
                   </span>
                 </div>
@@ -213,27 +240,31 @@ export default function Home() {
           delay={0.5}
           className="absolute bottom-16 right-6 z-10 hidden max-w-xs lg:block xl:right-16"
         >
-          <div className="rounded-2xl border border-white/15 bg-ink-950/40 p-6 shadow-soft backdrop-blur-md">
-            <Quote className="h-6 w-6 text-gold-400/70" />
+          <div className="rounded-2xl border border-white/10 bg-ink-950/50 p-6 shadow-deep backdrop-blur-md">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gold-500/15">
+              <Quote className="h-4 w-4 text-gold-400" />
+            </div>
             <p className="mt-3 font-display text-lg italic leading-snug text-white/90">
-              "{HERO_QUOTE.text}"
+              &ldquo;{HERO_QUOTE.text}&rdquo;
             </p>
-            <p className="mt-2 text-xs font-medium uppercase tracking-wider text-gold-300/80">
+            <div className="mt-3 h-px bg-gradient-to-r from-gold-500/30 to-transparent" />
+            <p className="mt-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300/70">
               — {HERO_QUOTE.author}
             </p>
           </div>
         </Reveal>
 
-        <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/50 sm:flex">
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/40 sm:flex">
           <Mouse className="h-5 w-5 animate-bounce" strokeWidth={1.5} />
-          <span className="text-[10px] uppercase tracking-[0.3em]">
+          <span className="text-[9px] uppercase tracking-[0.3em]">
             Scroll to Explore
           </span>
         </div>
       </section>
 
-      {/* ---------------- INTRO ---------------- */}
-      <section className="section-pad">
+      {/* ── INTRO ── */}
+      <section className="section-pad bg-cream-50 dark:bg-[#0e0806]">
         <div className="container-wide">
           <SectionHeading
             eyebrow={t("home.introEyebrow")}
@@ -262,24 +293,25 @@ export default function Home() {
                 href: "/foundation",
               },
             ].map((org, i) => (
-              <Reveal key={org.titleKey} delay={i * 0.1}>
+              <Reveal key={org.titleKey} delay={i * 0.12}>
                 <Link
                   to={org.href}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-ink-900/5 bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft dark:border-white/10 dark:bg-ink-900"
+                  className="card-premium group flex h-full flex-col p-8"
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-maroon text-white shadow-soft">
+                  {/* Icon */}
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-maroon text-white shadow-maroon transition-all duration-300 group-hover:shadow-glow-maroon">
                     <org.icon className="h-6 w-6" />
                   </div>
                   <h3 className="mt-6 font-display text-xl font-semibold text-ink-900 dark:text-cream-50">
                     {t(`home.${org.titleKey}`)}
                   </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-900/60 dark:text-cream-100/60">
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-900/55 dark:text-cream-100/55">
                     {t(`home.${org.textKey}`)}
                   </p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-900 dark:text-gold-400">
+                  <div className="mt-6 flex items-center gap-1.5 text-sm font-semibold text-primary-900 dark:text-gold-400">
                     {t("common.learnMore")}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  </div>
                 </Link>
               </Reveal>
             ))}
@@ -287,8 +319,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- UPCOMING EVENTS ---------------- */}
-      <section className="section-pad bg-cream-100/60 dark:bg-white/[0.02]">
+      {/* ── UPCOMING EVENTS ── */}
+      <section className="section-pad section-alt bg-cream-100/60 dark:bg-white/[0.018]">
         <div className="container-wide">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading
@@ -312,7 +344,7 @@ export default function Home() {
             {loading ? (
               [1, 2, 3].map((i) => <SkeletonCard key={i} className="h-80" />)
             ) : events.length === 0 ? (
-              <p className="col-span-full text-center text-ink-900/50 dark:text-cream-100/50">
+              <p className="col-span-full text-center text-ink-900/40 dark:text-cream-100/40">
                 {t("common.noData")}
               </p>
             ) : (
@@ -326,14 +358,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- TODAY'S ACTIVITIES ---------------- */}
-      <section className="section-pad">
+      {/* ── TODAY'S ACTIVITIES ── */}
+      <section className="section-pad bg-cream-50 dark:bg-[#0e0806]">
         <div className="container-wide">
           <SectionHeading
             eyebrow={t("home.todayEyebrow")}
             title={t("home.todayTitle")}
           />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: Sunrise, time: "5:30 AM", label: "Morning Pooja" },
               { icon: BookOpen, time: "9:00 AM", label: "Meditation Session" },
@@ -341,16 +373,20 @@ export default function Home() {
               { icon: Calendar, time: "Sundays", label: "Daham Pasala" },
             ].map((item, i) => (
               <Reveal key={item.label} delay={i * 0.08}>
-                <div className="flex flex-col items-center gap-3 rounded-2xl border border-ink-900/5 bg-white p-6 text-center shadow-card dark:border-white/10 dark:bg-ink-900">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-500/15 text-gold-600 dark:text-gold-400">
-                    <item.icon className="h-5 w-5" />
+                <div className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-ink-900/[0.06] bg-white p-7 text-center shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-deep dark:border-white/[0.07] dark:bg-[#18100d]">
+                  {/* Gradient top line on hover */}
+                  <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gold-500/12 text-gold-600 transition-all duration-300 group-hover:bg-gold-500/20 dark:bg-gold-500/10 dark:text-gold-400">
+                    <item.icon className="h-6 w-6" />
                   </div>
-                  <p className="font-display text-lg font-semibold text-ink-900 dark:text-cream-50">
-                    {item.time}
-                  </p>
-                  <p className="text-sm text-ink-900/55 dark:text-cream-100/55">
-                    {item.label}
-                  </p>
+                  <div>
+                    <p className="font-display text-xl font-semibold text-ink-900 dark:text-cream-50">
+                      {item.time}
+                    </p>
+                    <p className="mt-1 text-sm text-ink-900/50 dark:text-cream-100/50">
+                      {item.label}
+                    </p>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -358,11 +394,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- HISTORY PREVIEW ---------------- */}
-      <section className="section-pad bg-cream-100/60 dark:bg-white/[0.02]">
+      {/* ── HISTORY PREVIEW ── */}
+      <section className="section-pad section-alt bg-cream-100/60 dark:bg-white/[0.018]">
         <div className="container-wide grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-soft">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-deep">
               {history?.imageUrl ? (
                 <FocalImage
                   src={history.imageUrl}
@@ -370,19 +406,22 @@ export default function Home() {
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-gradient-maroon text-white/30">
+                <div className="flex h-full w-full items-center justify-center bg-gradient-maroon text-white/20">
                   <Landmark className="h-16 w-16" />
                 </div>
               )}
+              {/* Corner accent */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
           </Reveal>
+
           <div>
             <SectionHeading
               align="left"
               eyebrow={t("home.historyEyebrow")}
               title={history?.title || t("home.historyTitle")}
             />
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-900/60 dark:text-cream-100/60">
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-900/58 dark:text-cream-100/62">
               {history?.description ||
                 "For generations, this temple has stood as a spiritual home for the Kalatuwagama community — a place of quiet devotion, learning, and service that continues to grow with each passing year."}
             </p>
@@ -394,8 +433,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- GALLERY PREVIEW ---------------- */}
-      <section className="section-pad">
+      {/* ── GALLERY PREVIEW ── */}
+      <section className="section-pad bg-cream-50 dark:bg-[#0e0806]">
         <div className="container-wide">
           <SectionHeading
             eyebrow={t("home.galleryEyebrow")}
@@ -412,12 +451,14 @@ export default function Home() {
                     delay={i * 0.05}
                     className="aspect-square"
                   >
-                    <div className="group h-full w-full overflow-hidden rounded-2xl">
+                    <div className="group relative h-full w-full overflow-hidden rounded-2xl shadow-card">
                       <FocalImage
                         src={photo.imageUrl}
                         alt={photo.title || ""}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     </div>
                   </Reveal>
                 ))}
@@ -431,9 +472,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- NEWS ---------------- */}
+      {/* ── NEWS ── */}
       {(loading || news.length > 0) && (
-        <section className="section-pad bg-cream-100/60 dark:bg-white/[0.02]">
+        <section className="section-pad section-alt bg-cream-100/60 dark:bg-white/[0.018]">
           <div className="container-wide">
             <SectionHeading
               align="left"
@@ -443,12 +484,14 @@ export default function Home() {
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {loading
                 ? [1, 2, 3].map((i) => (
-                    <SkeletonCard key={i} className="h-44" />
+                    <SkeletonCard key={i} className="h-48" />
                   ))
                 : news.map((item, i) => (
                     <Reveal key={item.id} delay={i * 0.1}>
-                      <div className="flex h-full flex-col rounded-2xl border border-ink-900/5 bg-white p-6 shadow-card dark:border-white/10 dark:bg-ink-900">
-                        <p className="text-xs font-semibold uppercase tracking-wide text-gold-600 dark:text-gold-400">
+                      <div className="card-premium group flex h-full flex-col p-6">
+                        {/* Gold top line on hover */}
+                        <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-600 dark:text-gold-400">
                           {(
                             parseLocalDateTime(item.publishDate) || new Date()
                           ).toLocaleDateString("en-US", {
@@ -471,19 +514,28 @@ export default function Home() {
         </section>
       )}
 
-      {/* ---------------- DONATIONS ---------------- */}
-      <section className="section-pad">
+      {/* ── DONATIONS CTA ── */}
+      <section className="section-pad bg-cream-50 dark:bg-[#0e0806]">
         <div className="container-wide">
           <Reveal>
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-maroon px-8 py-16 text-center shadow-soft sm:px-16">
-              <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-gold-500/15 blur-3xl" />
-              <span className="eyebrow border-gold-400/40 bg-white/10 text-gold-300">
+            <div className="relative overflow-hidden rounded-4xl px-8 py-16 text-center shadow-deep sm:px-16"
+              style={{
+                background: "linear-gradient(135deg, #5c1815 0%, #6F1D1B 40%, #3f100f 100%)",
+              }}
+            >
+              {/* Glowing blobs */}
+              <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-gold-500/15 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-10 -left-10 h-52 w-52 rounded-full bg-gold-500/10 blur-3xl" />
+              {/* Top shimmer line */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent" />
+
+              <span className="eyebrow relative border-gold-400/30 bg-white/[0.08] text-gold-300 backdrop-blur-sm">
                 {t("home.donationsEyebrow")}
               </span>
-              <h2 className="relative mt-5 font-display text-3xl font-semibold text-white sm:text-4xl">
+              <h2 className="relative mt-5 font-display text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
                 {t("home.donationsTitle")}
               </h2>
-              <p className="relative mx-auto mt-4 max-w-xl text-white/75">
+              <p className="relative mx-auto mt-4 max-w-xl text-white/65">
                 {t("home.donationsText")}
               </p>
               <Link
@@ -498,8 +550,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- TESTIMONIALS ---------------- */}
-      <section className="section-pad bg-cream-100/60 dark:bg-white/[0.02]">
+      {/* ── TESTIMONIALS ── */}
+      <section className="section-pad section-alt bg-cream-100/60 dark:bg-white/[0.018]">
         <div className="container-wide">
           <SectionHeading
             eyebrow={t("home.testimonialsEyebrow")}
@@ -507,19 +559,27 @@ export default function Home() {
           />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map((item, i) => (
-              <Reveal key={item.name} delay={i * 0.1}>
-                <div className="flex h-full flex-col rounded-2xl border border-ink-900/5 bg-white p-7 shadow-card dark:border-white/10 dark:bg-ink-900">
-                  <Quote className="h-7 w-7 text-gold-500/50" />
-                  <p className="mt-4 flex-1 text-sm italic leading-relaxed text-ink-900/70 dark:text-cream-100/70">
-                    "{item.quote}"
+              <Reveal key={item.name} delay={i * 0.12}>
+                <div className="card-premium group flex h-full flex-col p-7">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold-500/12 dark:bg-gold-500/10">
+                    <Quote className="h-5 w-5 text-gold-500/60 dark:text-gold-400/60" />
+                  </div>
+                  <p className="mt-5 flex-1 text-sm italic leading-relaxed text-ink-900/65 dark:text-cream-100/65">
+                    &ldquo;{item.quote}&rdquo;
                   </p>
-                  <div className="mt-5 border-t border-ink-900/5 pt-4 dark:border-white/10">
-                    <p className="font-semibold text-ink-900 dark:text-cream-50">
-                      {item.name}
-                    </p>
-                    <p className="text-xs text-ink-900/50 dark:text-cream-100/50">
-                      {item.role}
-                    </p>
+                  <div className="mt-5 flex items-center gap-3 border-t border-ink-900/[0.05] pt-4 dark:border-white/[0.05]">
+                    {/* Avatar initial */}
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-maroon text-sm font-semibold text-white shadow-maroon">
+                      {item.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-ink-900 dark:text-cream-50">
+                        {item.name}
+                      </p>
+                      <p className="text-xs text-ink-900/45 dark:text-cream-100/45">
+                        {item.role}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -528,15 +588,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- MAP ---------------- */}
-      <section className="section-pad">
+      {/* ── MAP ── */}
+      <section className="section-pad bg-cream-50 dark:bg-[#0e0806]">
         <div className="container-wide">
           <SectionHeading
             eyebrow={t("home.mapEyebrow")}
             title={t("home.mapTitle")}
           />
           <Reveal className="mt-12">
-            <div className="relative overflow-hidden rounded-3xl shadow-soft">
+            <div className="relative overflow-hidden rounded-3xl border border-ink-900/[0.06] shadow-deep dark:border-white/[0.07]">
               <iframe
                 title="Temple map"
                 src={`https://www.google.com/maps?q=${TEMPLE_LOCATION.lat},${TEMPLE_LOCATION.lng}&hl=en&z=16&output=embed`}
@@ -548,9 +608,9 @@ export default function Home() {
                 href={TEMPLE_LOCATION.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-6 left-6 flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-primary-900 shadow-soft transition-transform hover:-translate-y-0.5"
+                className="absolute bottom-6 left-6 flex items-center gap-2 rounded-full border border-white/70 bg-white/95 px-5 py-3 text-sm font-semibold text-primary-900 shadow-soft backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-maroon"
               >
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 text-primary-900" />
                 {t("common.getDirections")}
               </a>
             </div>

@@ -39,12 +39,14 @@ export default function Contact() {
 
   return (
     <div>
-      <section className="relative flex min-h-[50vh] items-center overflow-hidden bg-gradient-hero pb-16 pt-32">
+      <section className="relative flex min-h-[52vh] items-center overflow-hidden bg-gradient-hero pb-16 pt-32">
         <HeroPhoto />
-        <div className="pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full bg-gold-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full bg-gold-500/12 blur-3xl" />
+        <div className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-primary-900/15 blur-3xl" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold-500/20 to-transparent" />
         <div className="container-wide relative text-center">
           <Reveal>
-            <span className="eyebrow border-white/30 bg-white/10 text-gold-300">
+            <span className="eyebrow border-white/20 bg-white/[0.08] text-gold-300 backdrop-blur-sm">
               {t("contact.eyebrow")}
             </span>
           </Reveal>
@@ -54,14 +56,14 @@ export default function Contact() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-4 max-w-xl text-white/75">
+            <p className="mx-auto mt-4 max-w-xl text-white/68">
               {t("contact.subtitle")}
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="section-pad">
+      <section className="section-pad bg-cream-50 dark:bg-[#0e0806]">
         <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1.1fr]">
           {/* Info + map */}
           <Reveal>
@@ -94,13 +96,13 @@ export default function Contact() {
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="flex items-start gap-4 rounded-2xl border border-ink-900/5 bg-white p-4 shadow-card dark:border-white/10 dark:bg-ink-900"
+                    className="group flex items-start gap-4 rounded-2xl border border-ink-900/[0.06] bg-white p-4 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:shadow-deep dark:border-white/[0.07] dark:bg-[#18100d]"
                   >
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-500/15 text-gold-600 dark:text-gold-400">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-maroon text-gold-300 shadow-maroon transition-all duration-300 group-hover:shadow-glow-maroon">
                       <item.icon className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-ink-900/45 dark:text-cream-100/45">
+                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-900/40 dark:text-cream-100/40">
                         {item.label}
                       </p>
                       <p className="mt-0.5 font-medium text-ink-900 dark:text-cream-50">
@@ -111,7 +113,7 @@ export default function Contact() {
                 ))}
               </div>
 
-              <div className="mt-6 overflow-hidden rounded-2xl shadow-card">
+              <div className="mt-6 overflow-hidden rounded-2xl border border-ink-900/[0.06] shadow-deep dark:border-white/[0.07]">
                 <iframe
                   title="Temple location"
                   src={`https://www.google.com/maps?q=${TEMPLE_LOCATION.lat},${TEMPLE_LOCATION.lng}&hl=en&z=15&output=embed`}
@@ -125,7 +127,7 @@ export default function Contact() {
 
           {/* Form */}
           <Reveal delay={0.15}>
-            <div className="rounded-3xl border border-ink-900/5 bg-white p-8 shadow-card dark:border-white/10 dark:bg-ink-900 sm:p-10">
+            <div className="rounded-3xl border border-ink-900/[0.06] bg-white p-8 shadow-deep dark:border-white/[0.07] dark:bg-[#18100d] sm:p-10">
               <h2 className="font-display text-2xl font-semibold text-ink-900 dark:text-cream-50">
                 {t("contact.formTitle")}
               </h2>
@@ -157,7 +159,7 @@ export default function Contact() {
                         setForm({ ...form, email: e.target.value })
                       }
                       placeholder={t("contact.emailPlaceholder")}
-                      className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
+                      className="w-full rounded-xl border border-ink-900/[0.08] bg-cream-50/80 px-4 py-3 text-sm outline-none transition-all focus:border-gold-500/50 focus:ring-2 focus:ring-gold-500/20 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-cream-50"
                       required
                     />
                   </div>
@@ -173,7 +175,7 @@ export default function Contact() {
                       setForm({ ...form, subject: e.target.value })
                     }
                     placeholder={t("contact.subjectPlaceholder")}
-                    className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
+                    className="w-full rounded-xl border border-ink-900/[0.08] bg-cream-50/80 px-4 py-3 text-sm outline-none transition-all focus:border-gold-500/50 focus:ring-2 focus:ring-gold-500/20 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-cream-50"
                   />
                 </div>
                 <div>
@@ -187,7 +189,7 @@ export default function Contact() {
                       setForm({ ...form, message: e.target.value })
                     }
                     placeholder={t("contact.messagePlaceholder")}
-                    className="w-full rounded-xl border-ink-900/10 bg-cream-50 px-4 py-3 text-sm outline-none focus:border-primary-900 focus:ring-primary-900 dark:border-white/10 dark:bg-white/5 dark:text-cream-50"
+                    className="w-full rounded-xl border border-ink-900/[0.08] bg-cream-50/80 px-4 py-3 text-sm outline-none transition-all focus:border-gold-500/50 focus:ring-2 focus:ring-gold-500/20 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-cream-50"
                     required
                   />
                 </div>
