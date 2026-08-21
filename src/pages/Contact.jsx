@@ -56,7 +56,7 @@ export default function Contact() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-4 max-w-xl text-white/68">
+            <p className="mx-auto mt-4 max-w-xl text-white">
               {t("contact.subtitle")}
             </p>
           </Reveal>
