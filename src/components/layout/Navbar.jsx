@@ -33,8 +33,8 @@ const NAV = [
     children: [
       { key: "introduction", href: "/daham-pasala#intro" },
       { key: "teachers", href: "/daham-pasala#teachers" },
-      { key: "dp_events", href: "/daham-pasala#events" },
-      { key: "dp_gallery", href: "/daham-pasala#gallery" },
+      // { key: "dp_events", href: "/daham-pasala#events" },
+      // { key: "dp_gallery", href: "/daham-pasala#gallery" },
     ],
   },
   {
@@ -149,7 +149,11 @@ export default function Navbar() {
                 {({ isActive }) => (
                   <>
                     {t(`nav.${item.key}`)}
-                    {item.children && <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${openMenu === item.key ? "rotate-180" : ""}`} />}
+                    {item.children && (
+                      <ChevronDown
+                        className={`h-3.5 w-3.5 transition-transform duration-200 ${openMenu === item.key ? "rotate-180" : ""}`}
+                      />
+                    )}
                     {/* Active indicator */}
                     {isActive && !transparent && (
                       <span className="absolute bottom-0.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-gradient-gold" />
@@ -224,7 +228,10 @@ export default function Navbar() {
             className="relative ml-1 inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-gold px-5 py-2.5 text-sm font-semibold text-ink-950 shadow-gold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-gold-lg"
           >
             {/* Shimmer overlay */}
-            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-shimmer opacity-0 transition-opacity group-hover:opacity-100 animate-shimmer" aria-hidden />
+            <span
+              className="pointer-events-none absolute inset-0 -translate-x-full bg-shimmer opacity-0 transition-opacity group-hover:opacity-100 animate-shimmer"
+              aria-hidden
+            />
             <Heart className="h-4 w-4 fill-current" />
             {t("nav.donations")}
           </Link>
@@ -304,10 +311,7 @@ export default function Navbar() {
                 {isDark ? "Light" : "Dark"}
               </button>
             </div>
-            <Link
-              to="/donations"
-              className="btn-gold mt-3 w-full"
-            >
+            <Link to="/donations" className="btn-gold mt-3 w-full">
               <Heart className="h-4 w-4 fill-current" />
               {t("nav.donations")}
             </Link>
